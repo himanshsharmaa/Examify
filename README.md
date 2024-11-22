@@ -5,7 +5,7 @@
 </p>
 
 <div align="center">
-    <img src="https://keplor.com/assets/keplor-header.png" alt=" Header" />
+    <img src="[https://keplor.com/assets/keplor-header.png](https://github.com/himanshsharmaa/Examify/blob/main/assets/img/Examify.png?raw=true)" alt=" Header" />
 </div>
 
 ------
