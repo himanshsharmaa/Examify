@@ -149,7 +149,7 @@ Examify/
 <h2 align="left">🚀 Installation</h2>
 <ol>
   <li>Clone the repository:
-    <pre><code>git clone https://github.com/ihimanshsharma/Examify.git
+    <pre><code>git clone https://github.com/himanshsharmaa/Examify.git
 cd Examify</code></pre>
   </li>
   <li>Install dependencies:
