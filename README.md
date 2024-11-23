@@ -198,4 +198,4 @@ cd Examify</code></pre>
 
 ------
 
-Made with ❤️ and PHP
+Made with ❤️ by <p align="left">Feel free to reach out via <a href="https://github.com/keplor-io">Keplor.Io</a>.</p>
