@@ -1,3 +1,4 @@
+<?php include 'includes/header.php'; ?>
 <?php
 session_start();
 
@@ -70,8 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
-<body class="font-roboto bg-gray-900 text-white">
-    <?php include 'includes/header.php'; ?>
+<body class="font-roboto bg-gray-900 text-white min-h-screen">
 
     <div class="max-w-7xl mx-auto py-12 px-6">
         <h1 class="text-4xl font-bold text-[#d4af37] mb-8">Teacher Profile</h1>
