@@ -1,6 +1,7 @@
-<?php include 'includes/header.php'; ?>
 <?php
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
 // Check if the user is logged in and is a teacher
 if (!isset($_SESSION['user_logged_in']) || $_SESSION['user_logged_in'] !== true || $_SESSION['user_role'] !== 'teacher') {
@@ -12,6 +13,8 @@ if (!isset($_SESSION['user_logged_in']) || $_SESSION['user_logged_in'] !== true 
 require_once '../config/constants.php';
 require_once '../config/functions.php';
 require_once '../database/db_config.php';
+
+include 'includes/header.php';
 
 // Get the teacher's ID
 $teacher_id = $_SESSION['user_id'];
@@ -80,7 +83,7 @@ function generateClassCode($length = 6) {
     $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     $charactersLength = strlen($characters);
     $randomString = '';
-    for ($i = 0; $i < $length; $i++) {
+    for ($i = 0; $length > $i; $i++) {
         $randomString .= $characters[rand(0, $charactersLength - 1)];
     }
     return $randomString;

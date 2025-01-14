@@ -8,7 +8,7 @@ if (session_status() === PHP_SESSION_NONE) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Examify - Online Exam Platform</title>
+    <title>Examify</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome for Icons -->
@@ -17,6 +17,29 @@ if (session_status() === PHP_SESSION_NONE) {
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: #1a1a2e;
+        }
+        main {
+            flex: 1;
+        }
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: #1a1a2e;
+        }
         /* Custom styles for dropdown */
         #cta-dropdown-menu {
             display: none;
@@ -47,7 +70,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
             <!-- Navbar Links for Large Screens -->
             <div class="hidden lg:flex space-x-8">
-                <a href="index.php/#home" class="hover:text-[#d4af37] hover:underline transition duration-300">Home</a>
+                <a href="index.php" class="hover:text-[#d4af37] hover:underline transition duration-300">Home</a>
                 <a href="index.php/#about" class="hover:text-[#d4af37] hover:underline transition duration-300">About</a>
                 <a href="index.php/#contact" class="hover:text-[#d4af37] hover:underline transition duration-300">Contact</a>
 
@@ -84,6 +107,7 @@ if (session_status() === PHP_SESSION_NONE) {
             </div>
         </nav>
     </header>
+    <main class="flex-grow">
 
     <!-- Script for Menu and Dropdown Toggling -->
     <script>

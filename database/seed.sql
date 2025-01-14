@@ -42,6 +42,8 @@ CREATE TABLE exams (
     id INT AUTO_INCREMENT PRIMARY KEY,
     exam_name VARCHAR(255) NOT NULL,
     exam_date DATE NOT NULL,
+    time_limit INT NOT NULL,
+    start_time DATETIME NOT NULL,
     class_id INT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (class_id) REFERENCES classes(id) ON DELETE CASCADE
@@ -50,26 +52,15 @@ CREATE TABLE exams (
 -- Create questions table
 CREATE TABLE questions (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    exam_id INT NOT NULL,
     question_text TEXT NOT NULL,
     option_a VARCHAR(255) NOT NULL,
     option_b VARCHAR(255) NOT NULL,
     option_c VARCHAR(255) NOT NULL,
     option_d VARCHAR(255) NOT NULL,
     correct_option ENUM('A', 'B', 'C', 'D') NOT NULL,
-    exam_id INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (exam_id) REFERENCES exams(id) ON DELETE CASCADE
-);
-
--- Create answers table
-CREATE TABLE answers (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    exam_id INT NOT NULL,
-    question_id INT NOT NULL,
-    student_id INT NOT NULL,
-    answer ENUM('A', 'B', 'C', 'D') NOT NULL,
-    FOREIGN KEY (exam_id) REFERENCES exams(id) ON DELETE CASCADE,
-    FOREIGN KEY (question_id) REFERENCES questions(id) ON DELETE CASCADE,
-    FOREIGN KEY (student_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 -- Create results table
@@ -78,8 +69,20 @@ CREATE TABLE results (
     exam_id INT NOT NULL,
     student_id INT NOT NULL,
     score INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (exam_id) REFERENCES exams(id) ON DELETE CASCADE,
     FOREIGN KEY (student_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+-- Create answers table
+CREATE TABLE answers (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    result_id INT NOT NULL,
+    question_id INT NOT NULL,
+    selected_option ENUM('A', 'B', 'C', 'D') NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (result_id) REFERENCES results(id) ON DELETE CASCADE,
+    FOREIGN KEY (question_id) REFERENCES questions(id) ON DELETE CASCADE
 );
 
 -- Insert initial users
@@ -101,9 +104,9 @@ INSERT INTO class_students (class_id, student_id) VALUES
 (2, 3);
 
 -- Insert initial exams
-INSERT INTO exams (exam_name, exam_date, class_id) VALUES
-('Math Exam 1', '2023-12-01', 1),
-('Science Exam 1', '2023-12-02', 2);
+INSERT INTO exams (exam_name, exam_date, time_limit, start_time, class_id) VALUES
+('Math Exam 1', '2023-12-01', 60, '2023-12-01 09:00:00', 1),
+('Science Exam 1', '2023-12-02', 60, '2023-12-02 09:00:00', 2);
 
 -- Insert initial questions for Math Exam 1
 INSERT INTO questions (question_text, option_a, option_b, option_c, option_d, correct_option, exam_id) VALUES

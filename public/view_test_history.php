@@ -1,6 +1,7 @@
-<?php include 'includes/header.php'; ?>
 <?php
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
 // Check if the user is logged in and is a teacher
 if (!isset($_SESSION['user_logged_in']) || $_SESSION['user_logged_in'] !== true || $_SESSION['user_role'] !== 'teacher') {
@@ -46,9 +47,9 @@ $stmt->bind_param('d', $test_id);
 $stmt->execute();
 $questions = $stmt->get_result();
 
-// Fetch test history from the database
+// Fetch test results from the database
 $query = "
-    SELECT results.id, results.score, users.name, users.email
+    SELECT results.id, results.score, users.name AS student_name
     FROM results
     JOIN users ON results.student_id = users.id
     WHERE results.exam_id = ?
@@ -56,7 +57,9 @@ $query = "
 $stmt = $db->prepare($query);
 $stmt->bind_param('d', $test_id);
 $stmt->execute();
-$test_history = $stmt->get_result();
+$results = $stmt->get_result();
+
+include 'includes/header.php';
 ?>
 
 <!DOCTYPE html>
@@ -93,17 +96,28 @@ $test_history = $stmt->get_result();
             <?php endwhile; ?>
         </ul>
 
-        <h2 class="text-2xl font-bold text-[#d4af37] mb-4">Students Who Attempted the Test</h2>
-        <ul class="bg-[#1a1a2e] p-4 rounded-lg shadow-lg">
-            <?php while ($history = $test_history->fetch_assoc()): ?>
-                <li class="mb-2">
-                    <p class="font-bold"><?php echo htmlspecialchars($history['name']); ?></p>
-                    <p class="text-gray-400">Email: <?php echo htmlspecialchars($history['email']); ?></p>
-                    <p class="text-gray-400">Score: <?php echo htmlspecialchars($history['score']); ?></p>
-                </li>
-            <?php endwhile; ?>
-        </ul>
+        <?php if ($results->num_rows > 0): ?>
+            <table class="min-w-full bg-gray-800 text-white">
+                <thead>
+                    <tr>
+                        <th class="py-2 px-4">Student Name</th>
+                        <th class="py-2 px-4">Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php while ($result = $results->fetch_assoc()): ?>
+                        <tr>
+                            <td class="py-2 px-4"><?php echo htmlspecialchars($result['student_name']); ?></td>
+                            <td class="py-2 px-4"><?php echo htmlspecialchars($result['score']); ?></td>
+                        </tr>
+                    <?php endwhile; ?>
+                </tbody>
+            </table>
+        <?php else: ?>
+            <p class="text-lg">No results found for this test.</p>
+        <?php endif; ?>
     </div>
+
+    <?php include 'includes/footer.php'; ?>
 </body>
 </html>
-<?php include 'includes/footer.php'; ?>

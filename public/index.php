@@ -20,9 +20,9 @@
                 </a>
             </div>
 
-            <!-- Image aligned to the right -->
+                        <!-- Image aligned to the right -->
             <div class="flex-1 text-center lg:text-right lg:ml-8">
-                <img src="../../assets/img/home.png" alt="Exam Image" class="max-w-full lg:max-w-xl mb-6 rounded-lg transition-shadow duration-300 object-contain">
+                <img src="http://localhost/Examify/assets/img/home.png" alt="Exam Image" class="max-w-full lg:max-w-xl mb-6 rounded-lg transition-shadow duration-300 object-contain">
             </div>
         </div>
     </section>
